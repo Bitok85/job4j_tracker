@@ -7,6 +7,6 @@ public class DummyDic {
 
     public static void main(String[] args) {
         DummyDic dict = new DummyDic();
-        System.out.println(dict.engToRus("bruh"));
+        System.out.println(dict.engToRus("bruh")); // выводить не надо было?
     }
 }
