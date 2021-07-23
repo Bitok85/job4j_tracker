@@ -5,10 +5,10 @@ public class Error {
     private int status;
     private String message;
 
-    public void printData() {
-        System.out.println("Ошибка? " + active);
-        System.out.println("Номер ошибки " + status);
-        System.out.println("Сообщение " + message);
+    public Error() {
+        active = true;
+        status = 1;
+        message = "bruh";
     }
 
     public Error(boolean active, int status, String message) {
@@ -17,11 +17,17 @@ public class Error {
         this.message = message;
     }
 
+    public void printData() {
+        System.out.println("Ошибка? " + active);
+        System.out.println("Номер ошибки: " + status);
+        System.out.println("Сообщение: " + message);
+    }
+
     public static void main(String[] args) {
+        Error dumbError = new Error();
         Error error = new Error(false, 0, "Okay");
-        //Error dumbError = new Error();
+        dumbError.printData();
+        System.out.println();
         error.printData();
-        //dumbError.printData();
-        //public Error()     *** куда и как я должен добавить тут конструктор Error() по умолчанию, чтобы иметь возможность вывести dumbError?
     }
 }
