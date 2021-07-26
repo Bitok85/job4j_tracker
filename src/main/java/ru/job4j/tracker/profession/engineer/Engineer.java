@@ -8,6 +8,8 @@ public class Engineer extends Profession {
 
     public Engineer(String name, String surname, String education, String birthday, int age, String experience) {
         super(name, surname, education, birthday);
+        this.age = age;
+        this.experience = experience;
     }
 
     public int getAge() {
