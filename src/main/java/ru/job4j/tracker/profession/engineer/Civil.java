@@ -4,8 +4,8 @@ public class Civil extends Engineer {
     private boolean building;
     private boolean roadConstruction;
 
-    public Civil(String name, String surname, String education, String birthday) {
-        super(name, surname, education, birthday);
+    public Civil(String name, String surname, String education, String birthday, int age, String experience) {
+        super(name, surname, education, birthday, age, experience);
     }
 
     public boolean getBuilding() {
