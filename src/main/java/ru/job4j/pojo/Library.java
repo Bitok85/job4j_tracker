@@ -16,16 +16,15 @@ public class Library extends Book{
         literature[1] = algoGrok;
         literature[2] = cleanCode;
         literature[3] = biteOfPy;
-        for (int i = 0; i < literature.length; i++) {
-            Book lit = literature[i];
+        for (Book lit : literature) {
             System.out.println(lit.getName() + " " + lit.getPages());
         }
         System.out.println();
-        literature[0] = biteOfPy;
-        literature[3] = javaPhil;
-        for (int i = 0; i < literature.length; i++) {
-            Book lit = literature[i];
-            if (lit.getName().equals("Clean Code")) {
+        Book temp = literature[0];
+        literature[0] = literature[3];
+        literature[3] = temp;
+        for (Book lit : literature) {
+            if ("Clean Code".equals(lit.getName())) {
                 System.out.println(lit.getName() + " " + lit.getPages());
             }
         }
