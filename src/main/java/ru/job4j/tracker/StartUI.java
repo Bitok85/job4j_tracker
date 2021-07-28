@@ -14,6 +14,6 @@ public class StartUI {
         String cleanDateTime = dirtyDateTime.format(formatter);
         System.out.println(cleanDateTime);
         Item testToStr = new Item(12, "Gav");
-        System.out.println(testToStr.toString());
+        System.out.println(testToStr);
     }
 }
