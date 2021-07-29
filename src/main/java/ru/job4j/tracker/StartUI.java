@@ -10,8 +10,12 @@ public class StartUI {
             System.out.println("Select: ");
             int select = Integer.parseInt(scanner.nextLine());
             if (select != 6) {
-                System.out.println("Пользователь выбрал: " + select);
-            } else {
+                System.out.println("=== Create a new Item ====");
+                System.out.println("Enter name");
+                String name = scanner.nextLine();
+                Item item = new Item(name);
+                System.out.println("Добавлена заявка: " + item);
+            } else if (select == 6) {
                 run = false;
             }
         }
