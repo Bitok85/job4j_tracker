@@ -138,7 +138,7 @@ public class StartUITest {
                 "0. Show all items" + ls +
                 "1. Exit program" + ls +
                 "Show all items" + ls +
-                "Item{id=1, name='test'}" + ls +
+                item + ls +
                 "Menu." + ls +
                 "0. Show all items" + ls +
                 "1. Exit program" + ls));
@@ -162,7 +162,7 @@ public class StartUITest {
                 "0. Find item by ID " + ls +
                 "1. Exit program" + ls +
                 "=== Find item by id ====" + ls +
-                "Item{id=1, name='test'}" + ls +
+                item + ls +
                 "Menu." + ls +
                 "0. Find item by ID " + ls +
                 "1. Exit program" + ls));
@@ -186,7 +186,7 @@ public class StartUITest {
                 "0. Find item by name" + ls +
                 "1. Exit program" + ls +
                 "=== Find items by name ====" + ls +
-                "Item{id=1, name='test'}" + ls +
+                item + ls +
                 "Menu." + ls +
                 "0. Find item by name" + ls +
                 "1. Exit program" + ls));

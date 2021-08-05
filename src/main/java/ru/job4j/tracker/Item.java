@@ -41,20 +41,12 @@ public class Item {
         this.name = name;
     }
 
-    /*@Override
+    @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", created=" + created.format(FORMATTER) +
                 '}';
-    }*/
-
-    @Override
-    public  String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                "}";
     }
 }
