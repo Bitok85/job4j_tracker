@@ -243,7 +243,7 @@ public class StartUITest {
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
-        assertThat(selected, is(3));
+        assertThat(selected, is(-3));
     }
 
     @Test
@@ -254,6 +254,8 @@ public class StartUITest {
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
+        assertThat(selected, is(3));
+        selected = input.askInt("Enter menu:");
         assertThat(selected, is(6));
     }
 }
