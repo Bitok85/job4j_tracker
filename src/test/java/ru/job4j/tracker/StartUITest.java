@@ -212,5 +212,50 @@ public class StartUITest {
                         + "0. Exit program" + ls
         ));
     }
+
+    @Test
+    public void whenInvalidInput() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"one", "1"}
+        );
+        ValidateInput input = new ValidateInput(out, in);
+        int selected = input.askInt("Enter menu:");
+        assertThat(selected, is(1));
+    }
+
+    @Test
+    public void whenValidInput() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0"}
+        );
+        ValidateInput input = new ValidateInput(out, in);
+        int selected = input.askInt("Enter menu:");
+        assertThat(selected, is(0));
+    }
+
+    @Test
+    public void whenInvalidNegativeInput() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"-3", "3"}
+        );
+        ValidateInput input = new ValidateInput(out, in);
+        int selected = input.askInt("Enter menu:");
+        assertThat(selected, is(3));
+    }
+
+    @Test
+    public void whenFewInputs() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"3", "6"}
+        );
+        ValidateInput input = new ValidateInput(out, in);
+        int selected = input.askInt("Enter menu:");
+        assertThat(selected, is(6));
+    }
 }
+
 
