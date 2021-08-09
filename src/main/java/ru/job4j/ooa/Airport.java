@@ -5,15 +5,15 @@ public class Airport {
         Airbus airbus = new Airbus("A320");
         System.out.println(airbus);
         airbus.printModel();
-        airbus.printCountEngine(airbus);
+        airbus.printCountEngine();
 
         airbus = new Airbus("A380");
         System.out.println(airbus);
-        airbus.printCountEngine(airbus);
+        airbus.printCountEngine();
 
         airbus.setName("A320");
         System.out.println(airbus);
-        airbus.printCountEngine(airbus);
+        airbus.printCountEngine();
 
     }
 }
