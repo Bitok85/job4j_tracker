@@ -4,7 +4,8 @@ public class Military extends Engineer {
     private boolean offencive;
     private boolean defencive;
 
-    public Military(String name, String surname, String education, String birthday, int age, String experience) {
+    public Military(String name, String surname,
+                    String education, String birthday, int age, String experience) {
         super(name, surname, education, birthday, age, experience);
     }
 

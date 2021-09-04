@@ -1,6 +1,6 @@
 package ru.job4j.pojo;
 
-public class Shop extends Product{
+public class Shop extends Product {
 
     public Shop(String name, int count) {
         super(name, count);

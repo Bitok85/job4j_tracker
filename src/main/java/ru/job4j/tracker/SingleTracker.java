@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleTracker {
-    private Tracker tracker = new Tracker();
     private static SingleTracker instance = null;
+    private Tracker tracker = new Tracker();
 
     private SingleTracker() {
     }

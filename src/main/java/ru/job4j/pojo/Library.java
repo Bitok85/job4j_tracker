@@ -1,6 +1,6 @@
 package ru.job4j.pojo;
 
-public class Library extends Book{
+public class Library extends Book {
 
     public Library(String name, int pages) {
         super(name, pages);
