@@ -46,9 +46,8 @@ public class BankServiceTest {
 
     @Test
     public void whenTransferDifferentClients() {
-        User cat, dog;
-        cat = new User("paws and tail", "Kot Matroskin");
-        dog = new User("paws and fangs", "Sharik the Dog");
+        User cat = new User("paws and tail", "Kot Matroskin");
+        User dog = new User("paws and fangs", "Sharik the Dog");
         BankService bank = new BankService();
         bank.addUser(cat);
         bank.addUser(dog);
