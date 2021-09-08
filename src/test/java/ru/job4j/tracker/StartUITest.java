@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
 import static org.junit.Assert.*;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.swing.*;
@@ -9,6 +11,9 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.Matchers.nullValue;
 import java.lang.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Collections;
 
 public class StartUITest {
 
@@ -251,6 +256,47 @@ public class StartUITest {
         selected = input.askInt("Enter menu:");
         assertThat(selected, is(6));
     }
+
+    @Test
+    public void whenSortById() {
+        List<Item> items = Arrays.asList(
+                new Item(3, "abc"),
+                new Item(5, "def"),
+                new Item(1, "ghk")
+        );
+        List<Item> expectedAscending = Arrays.asList(
+                new Item(1, "ghk"),
+                new Item(3, "abc"),
+                new Item(5, "def")
+        );
+        List<Item> expectedDescending = Arrays.asList(
+                new Item(5, "def"),
+                new Item(3, "abc"),
+                new Item(1, "ghk")
+        );
+        Collections.sort(items);
+        assertThat(items, is(expectedAscending));
+        Collections.reverse(items);
+        assertThat(items, is(expectedDescending));
+    }
+
+    @Test
+    public void whenSortItemsByName() {
+        List<Item> items = Arrays.asList(
+                new Item(3, "def"),
+                new Item(5, "abc"),
+                new Item(1, "ghk")
+        );
+        List<Item> expectedAscending = Arrays.asList(
+                new Item(5, "abc"),
+                new Item(3, "def"),
+                new Item(1, "ghk")
+        );
+        Collections.sort(items, new ItemNameComparator());
+        assertThat(items, is(expectedAscending));
+
+    }
+
 }
 
 
