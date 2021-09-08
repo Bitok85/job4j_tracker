@@ -294,9 +294,5 @@ public class StartUITest {
         );
         Collections.sort(items, new ItemNameComparator());
         assertThat(items, is(expectedAscending));
-
     }
-
 }
-
-
