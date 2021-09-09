@@ -85,8 +85,8 @@ public class JobSortTest {
         Comparator<Job> cmpPriorityName =
                 new JobDescByPriority().thenComparing(new JobDescByName());
         int rsl = cmpPriorityName.compare(
-                new Job("Impl task", 0),
-                new Job("Fix bug", 1)
+                new Job("Fix bug", 1),
+                new Job("Impl test", 1)
         );
         assertThat(rsl, greaterThan(0));
     }
@@ -96,9 +96,9 @@ public class JobSortTest {
         Comparator<Job> cmpNamePriority = new JobAscByName().thenComparing(new JobAscByPriority());
         int rsl = cmpNamePriority.compare(
                 new Job("Impl task", 0),
-                new Job("Fix bug", 1)
+                new Job("Impl task", 1)
         );
-        assertThat(rsl, greaterThan(0));
+        assertThat(rsl, lessThan(0));
     }
 
     @Test
