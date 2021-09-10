@@ -2,6 +2,13 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает модель данных User, которая включает поля номера паспорта и имени пользователя,
+ * их геттеры и сеттеры и переопределённые методы сравнения.
+ * @author Alexander Kagin
+ * @Version 1.0
+ */
+
 public class User {
     private String passport;
     private String username;
@@ -27,6 +34,10 @@ public class User {
         this.username = username;
     }
 
+    /**
+     * Переопределение методов equals() и hashCode().
+     * Сравнение моделей класса User происходит только по номеру паспорта.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {

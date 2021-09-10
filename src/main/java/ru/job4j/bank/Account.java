@@ -2,6 +2,13 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает модель данных Account,
+ * которая включает поля с номерами реквизитов и суммы на счёте, а также
+ * их геттеры и сеттеры и переопределённые методы сравнения.
+ * @author Alexander Kagin
+ * @Version 1.0
+ */
 public class Account {
     private String requisite;
     private double balance;
@@ -27,6 +34,10 @@ public class Account {
         this.balance = balance;
     }
 
+    /**
+     * Переопределение методов equals() и hashCode().
+     * Сравнение моделей класса Account происходит только по номерам реквизитов.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
