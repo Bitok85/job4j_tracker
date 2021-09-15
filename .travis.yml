@@ -18,3 +18,9 @@ notifications:
       - kan041185@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
+
+env:
+
+  global:
+
+    - CODECOV_TOKEN="8f45c486-bf70-4c70-9dc8-c0d9e511cec0"
