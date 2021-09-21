@@ -28,5 +28,6 @@ public class Departments {
     }
 
     public static void sorDesc(List<String> orgs) {
+        Collections.sort(orgs, new DepDescComp());
     }
 }
