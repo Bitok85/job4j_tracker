@@ -40,7 +40,8 @@ public class FunctionInterfaceUsage {
         System.out.println("Третий символ в строке: " + function.apply("first"));
         System.out.println("Третий символ в строке: " + function.apply("second"));
 
-        BiFunction<String, Integer, String> biFunction = (s, j) -> s.concat(" ").concat(j.toString());
+        BiFunction<String, Integer, String> biFunction = (s, j) -> s.concat(" ")
+                .concat(j.toString());
         System.out.println("Результат работы бифункции: " + biFunction.apply("test", 123));
 
         UnaryOperator<StringBuilder> builder = b -> b.reverse();
