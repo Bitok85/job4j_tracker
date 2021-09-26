@@ -1,5 +1,7 @@
 package ru.job4j.function.stream;
 
+import javax.swing.plaf.synth.SynthDesktopIconUI;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -13,10 +15,12 @@ public class School {
     }
 
     public Map<String, Student> studentsToMap(List<Student> students) {
-        return students.stream().distinct().collect(
+        Comparator<Student> comp = (left, right) -> left.getSurname().compareTo(right.getSurname());
+        return students.stream().sorted(comp).collect(
                 Collectors.toMap(
                         Student::getSurname,
-                        student -> student
+                        student -> student,
+                        (surname1, surname2) -> surname1
                 )
         );
     }
