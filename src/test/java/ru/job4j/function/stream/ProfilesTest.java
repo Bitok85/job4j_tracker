@@ -21,7 +21,7 @@ public class ProfilesTest {
                 profile2
         );
         List<Address> rsl = pr.collect(profiles);
-        String expected1 = "Tver";
+        String expected1 = "Moscow";
         int expected2 = 5;
         assertThat(rsl.get(0).getCity(), is(expected1));
         assertThat(rsl.get(1).getHome(), is(expected2));
