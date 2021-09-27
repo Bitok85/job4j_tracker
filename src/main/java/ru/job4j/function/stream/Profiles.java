@@ -7,14 +7,12 @@ import java.util.stream.Collectors;
 
 public class Profiles {
     public List<Address> collect(List<Profile> profiles) {
-        List<Address> rsl = new ArrayList<>();
-        Comparator<Address> comp = (left, right) -> left.getCity().compareTo(right.getCity());
-        rsl = profiles.stream().map(
+        return profiles.stream().map(
                 Profile::getAddress
-        ).collect(Collectors.toList());
-        rsl.sort(comp);
-        return rsl.stream().
-                distinct()
+        ).collect(Collectors.toList())
+                .stream()
+                .distinct()
+                .sorted(Comparator.comparing(Address::getCity))
                 .collect(Collectors.toList());
     }
 }
