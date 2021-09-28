@@ -47,7 +47,7 @@ public class BankService {
      * @return Если в коллекции пользователь найден, возвращает пользователя.
      * Иначе возвращает null.
      */
-    public User findByPassport(String passport) {
+    /*public User findByPassport(String passport) {
         User rsl = null;
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
@@ -56,27 +56,32 @@ public class BankService {
             }
         }
         return rsl;
+    }*/
+
+    public User findByPassport(String passport) {
+        return users.keySet().stream()
+                .filter(s -> s.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
      * Метод ищет аккаунт пользователя по реквизитам
-     * @param passport сначала проверяется наличие пользоватля в коллекции по номеру паспорта
+     * @param passport сначала проверяется наличие пользователя в коллекции по номеру паспорта
      * @param requisite если пользователь найден, происходит поиск аккаунта с введёнными реквизитами
      * @return аккаунт пользователя. Если пользователь или аккаунт не найдены, null.
      */
+
     public Account findByRequisite(String passport, String requisite) {
-        Account rsl = null;
         User user = findByPassport(passport);
         if (user != null) {
             List<Account> accounts = users.get(user);
-            for (Account account : accounts) {
-                if (account.getRequisite().equals(requisite)) {
-                    rsl = account;
-                    break;
-                }
-            }
+            return accounts.stream()
+                    .filter(s -> s.getRequisite().equals(requisite))
+                    .findFirst()
+                    .orElse(null);
         }
-        return rsl;
+        return null;
     }
 
     /**
