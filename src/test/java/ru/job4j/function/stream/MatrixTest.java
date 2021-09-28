@@ -12,7 +12,7 @@ public class MatrixTest {
     @Test
     public void matrixToList() {
         Matrix matrix = new Matrix();
-        int[][] arr = {
+        Integer[][] arr = {
                 {1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9}
