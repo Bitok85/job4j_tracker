@@ -47,16 +47,6 @@ public class BankService {
      * @return Если в коллекции пользователь найден, возвращает пользователя.
      * Иначе возвращает null.
      */
-    /*public User findByPassport(String passport) {
-        User rsl = null;
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                rsl = user;
-                break;
-            }
-        }
-        return rsl;
-    }*/
 
     public User findByPassport(String passport) {
         return users.keySet().stream()
