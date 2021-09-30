@@ -23,7 +23,7 @@ public class JobSortTest {
                 new Job("Add classes", 3),
                 new Job("Write tests", 2)
         );
-        Collections.sort(jobs, new JobAscByName());
+        jobs.sort(new JobAscByName());
         assertThat(jobs, is(expected));
     }
 
@@ -33,11 +33,11 @@ public class JobSortTest {
                 new Job("Add classes", 3),
                 new Job("Write tests", 2)
         );
-        List<Job> expected = Arrays.asList(
+        List<Job> expected = List.of(
                 new Job("Write tests", 2),
                 new Job("Add classes", 3)
         );
-        Collections.sort(jobs, new JobAscByPriority());
+        jobs.sort(new JobAscByPriority());
         assertThat(jobs, is(expected));
     }
 
@@ -47,11 +47,11 @@ public class JobSortTest {
                 new Job("Add classes", 3),
                 new Job("Write tests", 2)
         );
-        List<Job> expected = Arrays.asList(
+        List<Job> expected = List.of(
                 new Job("Write tests", 2),
                 new Job("Add classes", 3)
         );
-        Collections.sort(jobs, new JobDescByName());
+        jobs.sort(new JobDescByName());
         assertThat(jobs, is(expected));
     }
 
@@ -61,11 +61,11 @@ public class JobSortTest {
                 new Job("Add classes", 3),
                 new Job("Write tests", 2)
         );
-        List<Job> expected = Arrays.asList(
+        List<Job> expected = List.of(
                 new Job("Add classes", 3),
                 new Job("Write tests", 2)
         );
-        Collections.sort(jobs, new JobDescByPriority());
+        jobs.sort(new JobDescByPriority());
         assertThat(jobs, is(expected));
     }
 

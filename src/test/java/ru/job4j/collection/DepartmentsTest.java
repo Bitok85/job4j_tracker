@@ -12,32 +12,32 @@ public class DepartmentsTest {
 
     @Test
     public void whenMissed() {
-        List<String> input = Arrays.asList("k1/sk1");
-        List<String> expect = Arrays.asList("k1", "k1/sk1");
+        List<String> input = List.of("k1/sk1");
+        List<String> expect = List.of("k1", "k1/sk1");
         List<String> rsl = Departments.fillGap(input);
         assertThat(rsl, is(expect));
     }
 
     @Test
     public void whenNotMissed() {
-        List<String> input = Arrays.asList("k1", "k1/sk1");
-        List<String> expect = Arrays.asList("k1", "k1/sk1");
+        List<String> input = List.of("k1", "k1/sk1");
+        List<String> expect = List.of("k1", "k1/sk1");
         List<String> rsl = Departments.fillGap(input);
         assertThat(rsl, is(expect));
     }
 
     @Test
     public void whenMissedSecond() {
-        List<String> input = Arrays.asList("k1", "k1/sk1/ssk1");
-        List<String> expect = Arrays.asList("k1", "k1/sk1", "k1/sk1/ssk1");
+        List<String> input = List.of("k1", "k1/sk1/ssk1");
+        List<String> expect = List.of("k1", "k1/sk1", "k1/sk1/ssk1");
         List<String> rsl = Departments.fillGap(input);
         assertThat(rsl, is(expect));
     }
 
     @Test
     public void whenMisedFew() {
-        List<String> input = Arrays.asList("k1/sk1", "k2/sk1/ssk2");
-        List<String> expect = Arrays.asList("k1", "k1/sk1", "k2", "k2/sk1", "k2/sk1/ssk2");
+        List<String> input = List.of("k1/sk1", "k2/sk1/ssk2");
+        List<String> expect = List.of("k1", "k1/sk1", "k2", "k2/sk1", "k2/sk1/ssk2");
         List<String> rsl = Departments.fillGap(input);
         assertThat(rsl, is(expect));
     }
