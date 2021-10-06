@@ -2,18 +2,18 @@ package ru.job4j.function.stream;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Analyze {
     public static double averageScore(Stream<Pupil> stream) {
-        OptionalDouble rsl = stream.flatMapToInt(
+        return stream.flatMapToInt(
                     s -> s.getSubjects()
                         .stream()
                         .mapToInt(Subject::getScore)
-                )
-                .average();
-        return rsl.isPresent() ? rsl.getAsDouble() : -1D;
+                    )
+                .average()
+                .orElse(-1D);
+
     }
 
     public static List<Tuple> averageScoreBySubject(Stream<Pupil> stream) {
@@ -23,7 +23,7 @@ public class Analyze {
                                 .stream()
                                 .mapToInt(Subject::getScore)
                                 .average()
-                                .getAsDouble()
+                                .orElse(-1D)
                 ))
                 .collect(Collectors.toList());
     }
@@ -56,7 +56,7 @@ public class Analyze {
                 )
         ).
                 max(Comparator.comparing(Tuple::getScore))
-                .get();
+                .orElse(new Tuple("none", -1D));
     }
 
     public static Tuple bestSubject(Stream<Pupil> stream) {
@@ -75,6 +75,6 @@ public class Analyze {
                         )
                 )
                 .max(Comparator.comparing(Tuple::getScore))
-                .get();
+                .orElse(new Tuple("none", -1D));
     }
 }
