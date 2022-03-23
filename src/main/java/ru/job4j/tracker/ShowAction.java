@@ -1,5 +1,4 @@
 package ru.job4j.tracker;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShowAction implements UserAction {
@@ -15,7 +14,7 @@ public class ShowAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, MemTracker tracker) {
         out.println("Show all items");
         List<Item> items = tracker.findAll();
         if (items.size() > 0) {

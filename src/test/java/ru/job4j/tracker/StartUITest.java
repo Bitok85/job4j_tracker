@@ -2,10 +2,7 @@ package ru.job4j.tracker;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
 import org.junit.Test;
-
-import javax.swing.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -22,7 +19,7 @@ public class StartUITest {
         String[] answers = {"Test1"};
         Output output = new ConsoleOutput();
         Input input = new StubInput(answers);
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         CreateAction createAction = new CreateAction(output);
         createAction.execute(input, tracker);
         Item created = tracker.findAll().get(0);
@@ -32,7 +29,7 @@ public class StartUITest {
 
     @Test
     public void whenReplaceItem() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = new Item("New item");
         Output output = new ConsoleOutput();
         tracker.add(item);
@@ -48,7 +45,7 @@ public class StartUITest {
 
     @Test
     public  void whenDeleteItem() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Output output = new ConsoleOutput();
         Item item = new Item("test");
         tracker.add(item);
@@ -67,7 +64,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", "test", "1"}
         );
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         ArrayList<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(output));
         actions.add(new ExitAction());
@@ -78,7 +75,7 @@ public class StartUITest {
     @Test
     public void whenReplaceItemUI() {
         Output output = new ConsoleOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = tracker.add(new Item("test"));
         String replacedName = "test2";
         Input in = new StubInput(
@@ -94,7 +91,7 @@ public class StartUITest {
     @Test
     public void whenDeleteItemUI() {
         Output output = new ConsoleOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = tracker.add(new Item("Deleted item"));
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
@@ -112,7 +109,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0"}
         );
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         ArrayList<UserAction> actions = new ArrayList<>();
         actions.add(new ExitAction());
         new StartUI(out).init(in, tracker, actions);
@@ -126,7 +123,7 @@ public class StartUITest {
     public void whenShowAllUI() {
         String ls = System.lineSeparator();
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = tracker.add(new Item("test"));
         Input in = new StubInput(
                 new String[] {"0", "1"}
@@ -149,7 +146,7 @@ public class StartUITest {
     public void whenFindByIDUI() {
         String ls = System.lineSeparator();
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = tracker.add(new Item("test"));
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
@@ -172,7 +169,7 @@ public class StartUITest {
     public void whenFindByNameUI() {
         String ls = System.lineSeparator();
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = tracker.add(new Item("test"));
         Input in = new StubInput(
                 new String[] {"0", item.getName(), "1"}
@@ -195,7 +192,7 @@ public class StartUITest {
     public void whenInvalidExit() {
         String ls = System.lineSeparator();
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Input in = new StubInput(
                 new String[] {"8", "0"}
         );
