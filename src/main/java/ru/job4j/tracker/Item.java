@@ -11,6 +11,7 @@ public class Item implements Comparable<Item> {
     private int id;
     private String name;
     private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime dateTime;
 
     public Item() {
     }
@@ -24,8 +25,32 @@ public class Item implements Comparable<Item> {
         this.name = name;
     }
 
+    public Item(int id, String name, LocalDateTime dateTime) {
+        this.id = id;
+        this.name = name;
+        this.dateTime = dateTime;
+    }
+
+    /**
+     *
+     * @return возвращает дату и время созданные автоматически при создании item в
+     * конструкторе: item(int id, String name).
+     */
     public LocalDateTime getDateTime() {
         return created;
+    }
+
+    /**
+     *
+     * @return возвращает дату и время присвоенные объекту item в конструкторе:
+     * item(int id, String name, LocalDateTime dateTime).
+     */
+    public LocalDateTime getMemDateTime() {
+        return dateTime;
+    }
+
+    public void setMemDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public int getId() {
@@ -49,7 +74,7 @@ public class Item implements Comparable<Item> {
         return "Item{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", created=" + created.format(FORMATTER)
+                + ", created=" + dateTime.format(FORMATTER)
                 + '}';
     }
 
@@ -67,11 +92,11 @@ public class Item implements Comparable<Item> {
             return false;
         }
         Item item = (Item) o;
-        return id == item.id && Objects.equals(name, item.name);
+        return id == item.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }
