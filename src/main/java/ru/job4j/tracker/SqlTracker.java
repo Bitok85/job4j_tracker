@@ -184,3 +184,4 @@ public class SqlTracker implements Store, AutoCloseable {
         return result;
     }
 }
+
