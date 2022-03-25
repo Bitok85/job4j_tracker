@@ -14,7 +14,7 @@ public class ShowAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker tracker) {
+    public boolean execute(Input input, Store tracker) {
         out.println("Show all items");
         List<Item> items = tracker.findAll();
         if (items.size() > 0) {

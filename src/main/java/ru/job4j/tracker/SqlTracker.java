@@ -3,13 +3,9 @@ package ru.job4j.tracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import java.awt.*;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.InputStream;
@@ -21,10 +17,10 @@ public class SqlTracker implements Store, AutoCloseable {
     private Connection cn;
     private final String path = "db/update_001.sql";
 
-    public SqlTracker() throws SQLException, IOException {
-      init();
-      createTab();
-      LOG.info("Connection initialized, DB created/already exists");
+    public SqlTracker() {
+            init();
+            createTab();
+            LOG.info("Connection initialized, DB created/already exists");
     }
 
     public void init() {
@@ -44,12 +40,12 @@ public class SqlTracker implements Store, AutoCloseable {
         }
     }
 
-    private void createTab() throws SQLException, IOException {
+    private void createTab() {
         try (Statement statement = cn.createStatement()) {
             String sql = new String(Files.readAllBytes(Paths.get(path)));
             statement.execute(sql);
         } catch (Exception e) {
-            LOG.error("table creation error", e);
+            LOG.error("Sql/IO exception", e);
         }
     }
 
@@ -169,7 +165,7 @@ public class SqlTracker implements Store, AutoCloseable {
     }
 
     @Override
-    public Item findBy(int id) {
+    public Item findById(int id) {
         Item result = new Item();
         try (PreparedStatement ps = cn.prepareStatement("select * from items where id = ?")) {
             ps.setInt(1, id);

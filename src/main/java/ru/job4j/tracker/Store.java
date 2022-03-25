@@ -14,5 +14,5 @@ public interface Store {
 
     List<Item> findByName(String key);
 
-    Item findBy(int id);
+    Item findById(int id);
 }

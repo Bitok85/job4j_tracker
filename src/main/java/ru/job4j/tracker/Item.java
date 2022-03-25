@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Formatter;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ public class Item implements Comparable<Item> {
             = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
     private int id;
     private String name;
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.MICROS);
     private LocalDateTime dateTime;
 
     public Item() {
@@ -34,7 +35,7 @@ public class Item implements Comparable<Item> {
     /**
      *
      * @return возвращает дату и время созданные автоматически при создании item в
-     * конструкторе: item(int id, String name).
+     * конструкторах: item(String name), item(int id, String name).
      */
     public LocalDateTime getDateTime() {
         return created;
@@ -74,7 +75,7 @@ public class Item implements Comparable<Item> {
         return "Item{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", created=" + dateTime.format(FORMATTER)
+                + ", created=" + created.format(FORMATTER)
                 + '}';
     }
 
