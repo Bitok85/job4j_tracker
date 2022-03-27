@@ -95,8 +95,7 @@ public class SqlTracker implements Store, AutoCloseable {
             ps.setString(1, item.getName());
             ps.setTimestamp(2, timestamp);
             ps.setInt(3, id);
-            ps.execute();
-            result = true;
+            result = ps.executeUpdate() > 0;
             LOG.info("Item '{}' replaced successfully", item.getName());
         } catch (Exception e) {
             LOG.error("Replace error", e);
@@ -109,8 +108,7 @@ public class SqlTracker implements Store, AutoCloseable {
         boolean result = false;
         try (PreparedStatement ps = cn.prepareStatement("delete from items where id = ?")) {
             ps.setInt(1, id);
-            ps.execute();
-            result = true;
+            result = ps.executeUpdate() > 0;
             LOG.info("ID '{}' deleted successfully", id);
         } catch (SQLException e) {
             LOG.error("Delete item error", e);
@@ -123,14 +121,8 @@ public class SqlTracker implements Store, AutoCloseable {
         List<Item> items = new ArrayList<>();
         try (PreparedStatement ps = cn.prepareStatement("select * from items")) {
             try (ResultSet resultSet = ps.executeQuery()) {
-                while (resultSet.next()) {
-                    items.add(new Item(
-                            resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
-                            ));
+                items = getDbItems(resultSet);
                 }
-            }
             LOG.info("Items list created");
         } catch (SQLException e) {
             LOG.error("Error", e);
@@ -146,13 +138,7 @@ public class SqlTracker implements Store, AutoCloseable {
         )) {
             ps.setString(1, key);
             try (ResultSet resultSet = ps.executeQuery()) {
-                while (resultSet.next()) {
-                    items.add(new Item(
-                            resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
-                    ));
-                }
+                items = getDbItems(resultSet);
             }
             LOG.info("Items '{}' list created", key);
         } catch (SQLException e) {
@@ -166,22 +152,32 @@ public class SqlTracker implements Store, AutoCloseable {
 
     @Override
     public Item findById(int id) {
-        Item result = new Item();
+        Item result = null;
         try (PreparedStatement ps = cn.prepareStatement("select * from items where id = ?")) {
             ps.setInt(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
-                if (resultSet.next()) {
-                    result.setId(resultSet.getInt("id"));
-                    result.setName(resultSet.getString("name"));
-                    result.setMemDateTime(resultSet.getTimestamp("created").toLocalDateTime());
-                } else {
-                    LOG.error("ID '{}' doesn't exist in table items", id);
-                }
+                result = getDbItems(resultSet).get(0);
             }
         } catch (SQLException e) {
-            LOG.error("Error", e);
+            LOG.error("SqlException", e);
         }
         return result;
+    }
+
+    private List<Item> getDbItems(ResultSet resultSet) {
+        List<Item> items = new ArrayList<>();
+        try  {
+            while (resultSet.next()) {
+                items.add(new Item(
+                        resultSet.getInt(resultSet.getInt("id")),
+                        resultSet.getString(resultSet.getString("name")),
+                        resultSet.getTimestamp("created").toLocalDateTime())
+                );
+            }
+        } catch (SQLException e) {
+            LOG.error("SqlException", e);
+        }
+        return items;
     }
 }
 

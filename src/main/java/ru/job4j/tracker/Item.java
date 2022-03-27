@@ -12,7 +12,6 @@ public class Item implements Comparable<Item> {
     private int id;
     private String name;
     private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.MICROS);
-    private LocalDateTime dateTime;
 
     public Item() {
     }
@@ -29,29 +28,15 @@ public class Item implements Comparable<Item> {
     public Item(int id, String name, LocalDateTime dateTime) {
         this.id = id;
         this.name = name;
-        this.dateTime = dateTime;
+        this.created = dateTime;
     }
 
-    /**
-     *
-     * @return возвращает дату и время созданные автоматически при создании item в
-     * конструкторах: item(String name), item(int id, String name).
-     */
     public LocalDateTime getDateTime() {
         return created;
     }
 
-    /**
-     *
-     * @return возвращает дату и время присвоенные объекту item в конструкторе:
-     * item(int id, String name, LocalDateTime dateTime).
-     */
-    public LocalDateTime getMemDateTime() {
-        return dateTime;
-    }
-
-    public void setMemDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public  void setDateTime(LocalDateTime created) {
+        this.created = created;
     }
 
     public int getId() {
