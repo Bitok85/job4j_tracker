@@ -15,12 +15,18 @@ public class SqlTracker implements Store, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(SqlTracker.class.getName());
     private Connection cn;
-    private final String path = "db/update_001.sql";
+    private final String path = "db/scripts/update_001.sql";
 
     public SqlTracker() {
             init();
             createTab();
             LOG.info("Connection initialized, DB created/already exists");
+    }
+
+    public SqlTracker(Connection init) {
+        init();
+        createTab();
+        LOG.info("Connection initialized, DB created/already exists");
     }
 
     public void init() {
@@ -169,8 +175,8 @@ public class SqlTracker implements Store, AutoCloseable {
         try  {
             while (resultSet.next()) {
                 items.add(new Item(
-                        resultSet.getInt(resultSet.getInt("id")),
-                        resultSet.getString(resultSet.getString("name")),
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
                         resultSet.getTimestamp("created").toLocalDateTime())
                 );
             }
