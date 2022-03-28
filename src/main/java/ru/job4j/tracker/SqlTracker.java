@@ -129,9 +129,7 @@ public class SqlTracker implements Store, AutoCloseable {
         try (PreparedStatement ps = cn.prepareStatement("select * from items")) {
             try (ResultSet resultSet = ps.executeQuery()) {
                 while (resultSet.next()) {
-                    if (!resultSet.getString("name").isEmpty()) {
-                        items.add(getDbItem(resultSet));
-                    }
+                    items.add(getDbItem(resultSet));
                 }
             }
             LOG.info("Items list created");
