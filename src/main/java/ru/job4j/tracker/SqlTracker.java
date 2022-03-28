@@ -102,6 +102,7 @@ public class SqlTracker implements Store, AutoCloseable {
             ps.setTimestamp(2, timestamp);
             ps.setInt(3, id);
             result = ps.executeUpdate() > 0;
+            item.setId(id);
             LOG.info("Item '{}' replaced successfully", item.getName());
         } catch (Exception e) {
             LOG.error("Replace error", e);
@@ -127,8 +128,12 @@ public class SqlTracker implements Store, AutoCloseable {
         List<Item> items = new ArrayList<>();
         try (PreparedStatement ps = cn.prepareStatement("select * from items")) {
             try (ResultSet resultSet = ps.executeQuery()) {
-                items = getDbItems(resultSet);
+                while (resultSet.next()) {
+                    if (!resultSet.getString("name").isEmpty()) {
+                        items.add(getDbItem(resultSet));
+                    }
                 }
+            }
             LOG.info("Items list created");
         } catch (SQLException e) {
             LOG.error("Error", e);
@@ -144,7 +149,9 @@ public class SqlTracker implements Store, AutoCloseable {
         )) {
             ps.setString(1, key);
             try (ResultSet resultSet = ps.executeQuery()) {
-                items = getDbItems(resultSet);
+                while (resultSet.next()) {
+                    items.add(getDbItem(resultSet));
+                }
             }
             LOG.info("Items '{}' list created", key);
         } catch (SQLException e) {
@@ -162,7 +169,9 @@ public class SqlTracker implements Store, AutoCloseable {
         try (PreparedStatement ps = cn.prepareStatement("select * from items where id = ?")) {
             ps.setInt(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
-                result = getDbItems(resultSet).get(0);
+                if (resultSet.next()) {
+                    result = getDbItem(resultSet);
+                }
             }
         } catch (SQLException e) {
             LOG.error("SqlException", e);
@@ -170,20 +179,16 @@ public class SqlTracker implements Store, AutoCloseable {
         return result;
     }
 
-    private List<Item> getDbItems(ResultSet resultSet) {
-        List<Item> items = new ArrayList<>();
-        try  {
-            while (resultSet.next()) {
-                items.add(new Item(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getTimestamp("created").toLocalDateTime())
-                );
-            }
-        } catch (SQLException e) {
-            LOG.error("SqlException", e);
-        }
-        return items;
+    private Item getDbItem(ResultSet resultSet) {
+        Item item = new Item();
+        try {
+            item.setId(resultSet.getInt("id"));
+            item.setName(resultSet.getString("name"));
+            item.setDateTime(resultSet.getTimestamp("created").toLocalDateTime());
+            } catch (SQLException e) {
+                LOG.error("SqlException", e);
+                }
+        return item;
     }
 }
 
