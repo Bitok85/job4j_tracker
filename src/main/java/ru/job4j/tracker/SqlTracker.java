@@ -25,7 +25,6 @@ public class SqlTracker implements Store, AutoCloseable {
 
     public SqlTracker(Connection init) {
         init();
-        createTab();
         LOG.info("Connection initialized, DB created/already exists");
     }
 
