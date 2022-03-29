@@ -74,7 +74,6 @@ public class SqlTrackerTest {
         assertNull(tracker.findById(item.getId()));
     }
 
-    @Ignore
     @Test
     public void whenSaveListAndFindAllThenGetSameList() {
         SqlTracker tracker = new SqlTracker(connection);
@@ -84,14 +83,13 @@ public class SqlTrackerTest {
         assertThat(tracker.findAll(), is(List.of(item1, item2, item3)));
     }
 
-    @Ignore
     @Test
     public void whenSaveListAndFindByNameThenListNames() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item1 = tracker.add(new Item("item1"));
         Item item2 = tracker.add(new Item("item2"));
         Item item3 = tracker.add(new Item("item3"));
-        tracker.add(item2);
-        assertThat(tracker.findByName("item2"), is(List.of(item2, item2)));
+        Item item4 = tracker.add(new Item("item2"));
+        assertThat(tracker.findByName("item2"), is(List.of(item2, item4)));
     }
 }

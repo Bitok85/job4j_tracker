@@ -23,8 +23,8 @@ public class SqlTracker implements Store, AutoCloseable {
             LOG.info("Connection initialized, DB created/already exists");
     }
 
-    public SqlTracker(Connection init) {
-        init();
+    public SqlTracker(Connection cn) {
+         this.cn = cn;
         LOG.info("Connection initialized, DB created/already exists");
     }
 
