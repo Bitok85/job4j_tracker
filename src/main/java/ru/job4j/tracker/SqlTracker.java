@@ -67,7 +67,7 @@ public class SqlTracker implements Store, AutoCloseable {
      */
     @Override
     public Item add(Item item) {
-        Timestamp timestamp = Timestamp.valueOf(item.getDateTime());
+        Timestamp timestamp = Timestamp.valueOf(item.getCreated());
         try (PreparedStatement ps = cn.prepareStatement(
                 "insert into items (name, created) values (?, ?)",
                 Statement.RETURN_GENERATED_KEYS
@@ -94,7 +94,7 @@ public class SqlTracker implements Store, AutoCloseable {
     @Override
     public boolean replace(int id, Item item) {
         boolean result = false;
-        Timestamp timestamp = Timestamp.valueOf(item.getDateTime());
+        Timestamp timestamp = Timestamp.valueOf(item.getCreated());
         try (PreparedStatement ps = cn.prepareStatement(
                 "update items set name = ?, created = ? where id = ?")) {
             ps.setString(1, item.getName());
@@ -181,7 +181,7 @@ public class SqlTracker implements Store, AutoCloseable {
         try {
             item.setId(resultSet.getInt("id"));
             item.setName(resultSet.getString("name"));
-            item.setDateTime(resultSet.getTimestamp("created").toLocalDateTime());
+            item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
             } catch (SQLException e) {
                 LOG.error("SqlException", e);
                 }
