@@ -21,16 +21,15 @@ public class HbmTracker implements Store, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        Item rsl = new Item(item.getName());
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            rsl.setId((int) session.save(item));
+            item.setId((int) session.save(item));
             session.getTransaction().commit();
             session.close();
         } catch (HibernateException e) {
             LOG.error("HibernateException", e);
         }
-        return rsl;
+        return item;
     }
 
     @Override
