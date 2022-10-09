@@ -23,7 +23,7 @@ public class HbmTracker implements Store, AutoCloseable {
     public Item add(Item item) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            item.setId((int) session.save(item));
+            session.save(item);
             session.getTransaction().commit();
             session.close();
         } catch (HibernateException e) {
