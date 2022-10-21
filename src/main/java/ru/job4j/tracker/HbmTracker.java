@@ -70,7 +70,7 @@ public class HbmTracker implements Store, AutoCloseable {
 
     @Override
     public List<Item> findAll() {
-        List<Item> rsl = new ArrayList<>();
+        List<Item> rsl;
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             rsl = session.createQuery("FROM Item").list();
