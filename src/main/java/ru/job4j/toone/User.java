@@ -2,9 +2,12 @@ package ru.job4j.toone;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ru.job4j.tracker.Item;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -26,4 +29,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "j_user_id")
     private List<UserMessenger> messengers;
+
+    @ManyToMany(mappedBy = "participates")
+    private Set<Item> items = new HashSet<>();
 }

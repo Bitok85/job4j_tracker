@@ -9,7 +9,7 @@ import org.hibernate.query.Query;
 
 public class HQLUsage {
 
-    public static void main(String[] args) {
+    /**public static void main(String[] args) {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try (SessionFactory sf = new MetadataSources(registry)
@@ -24,6 +24,14 @@ public class HQLUsage {
             e.printStackTrace();
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
+        }
+    }*/
+
+    public static void main(String[] args) {
+        try (HbmTracker tracker = new HbmTracker()) {
+            tracker.findAll().forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

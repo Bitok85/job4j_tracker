@@ -10,6 +10,7 @@ import ru.job4j.toone.User;
 import ru.job4j.toone.UserMessenger;
 
 import java.util.List;
+import java.util.Set;
 
 public class PatricipatesRun {
     public static void main(String[] args) {
@@ -30,7 +31,7 @@ public class PatricipatesRun {
             create(user, sf);
             var item = new Item();
             item.setName("Learn Hibernate");
-            item.setParticipates(List.of(user));
+            item.setParticipates(Set.of(user));
             create(item, sf);
             sf.openSession()
                     .createQuery("from Item where id = :fId", Item.class)

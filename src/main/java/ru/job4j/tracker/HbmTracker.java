@@ -9,6 +9,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class HbmTracker implements Store, AutoCloseable {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             rsl = session.createQuery(
-                    "DELETE Item WHERE id = :fId")
+                    "DELETE FROM Item WHERE id = :fId")
                     .setParameter("fId", id)
                     .executeUpdate() > 0;
             session.getTransaction().commit();
@@ -73,8 +74,10 @@ public class HbmTracker implements Store, AutoCloseable {
         List<Item> rsl;
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            rsl = session.createQuery("FROM Item").list();
-            session.getTransaction();
+            rsl = session.createQuery(
+                    "FROM Item i JOIN FETCH i.participates", Item.class)
+                    .list();
+            session.getTransaction().commit();
             session.close();
             return rsl;
         } catch (HibernateException e) {
@@ -106,7 +109,7 @@ public class HbmTracker implements Store, AutoCloseable {
             rsl = (Item) session.createQuery("FROM Item WHERE id = :fId")
                     .setParameter("fId", id)
                     .getSingleResult();
-        } catch (HibernateException e) {
+        } catch (NoResultException e) {
             LOG.error("HibernateException", e);
         }
         return rsl;
