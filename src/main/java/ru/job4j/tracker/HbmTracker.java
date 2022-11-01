@@ -55,7 +55,7 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public boolean delete(int id) {
         boolean rsl = false;
-        try (Session session = sf.getCurrentSession()) {
+        try (Session session = sf.openSession()) {
             session.beginTransaction();
             rsl = session.createQuery(
                     "DELETE FROM Item WHERE id = :fId")
@@ -75,7 +75,7 @@ public class HbmTracker implements Store, AutoCloseable {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             rsl = session.createQuery(
-                    "FROM Item i JOIN FETCH i.participates", Item.class)
+                    "FROM Item", Item.class)
                     .list();
             session.getTransaction().commit();
             session.close();
@@ -88,13 +88,15 @@ public class HbmTracker implements Store, AutoCloseable {
 
     @Override
     public List<Item> findByName(String key) {
-        List<Item> rsl = new ArrayList<>();
+        List<Item> rsl;
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             rsl = session.createQuery(
                     "FROM Item WHERE name = :fName")
                     .setParameter("fName", key)
                     .list();
+            session.getTransaction().commit();
+            return rsl;
         } catch (HibernateException e) {
             LOG.error("HibernateException", e);
         }
@@ -113,6 +115,10 @@ public class HbmTracker implements Store, AutoCloseable {
             LOG.error("HibernateException", e);
         }
         return rsl;
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sf;
     }
 
     @Override

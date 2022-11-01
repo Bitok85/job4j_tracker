@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.junit.After;
 import org.junit.Test;
 
 
@@ -10,6 +13,18 @@ import static org.assertj.core.api.Assertions.*;
 public class TrackerHbmTest {
 
     private final HbmTracker tracker = new HbmTracker();
+    private SessionFactory sf = tracker.getSessionFactory();
+
+    @After
+    public void wipeTable() {
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            session.createSQLQuery("DELETE FROM items").executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
@@ -35,7 +50,6 @@ public class TrackerHbmTest {
         assertThat(tracker.findById(item.getId())).isNull();
     }
 
-    /**
     @Test
     public void whenSaveListAndFindAllThenGetSameList() {
         Item item1 = tracker.add(new Item("item1"));
@@ -52,5 +66,4 @@ public class TrackerHbmTest {
         Item item4 = tracker.add(new Item("item2"));
         assertThat(tracker.findByName("item2")).isEqualTo(List.of(item2, item4));
     }
-    */
 }

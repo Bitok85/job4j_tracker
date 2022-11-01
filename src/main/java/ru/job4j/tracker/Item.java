@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import ru.job4j.toone.User;
@@ -37,6 +38,8 @@ public class Item implements Comparable<Item> {
             joinColumns = {@JoinColumn(name = "item_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<User> participates;
 
     public Item() {
